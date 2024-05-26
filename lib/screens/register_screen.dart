@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import '../data/api_service.dart';
+import 'package:chat_app_bkav_/api/api_server.dart';
 import 'home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -141,12 +141,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           await ApiService().register("", username, password);
 
       if (registerResponse['status'] == 1) {
-
         String token = registerResponse['data']['token'];
         if (!mounted) return;
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => HomeScreen(token : token)),
+          MaterialPageRoute(builder: (_) => HomeScreen(token: token)),
         );
       } else {
         String errorMessage = registerResponse['message'];
