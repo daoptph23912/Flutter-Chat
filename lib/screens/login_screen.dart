@@ -1,4 +1,4 @@
-import 'package:chat_app_bkav_/data/api_service.dart';
+import 'package:chat_app_bkav_/api/api_server.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app_bkav_/constants/constants.dart';
@@ -42,52 +42,59 @@ class _BodyLoginScreenState extends State<BodyLoginScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
-          foregroundColor: Colors.blue,
+          titleTextStyle: const TextStyle(
+            color: Color(0xFF1C6DCF),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(height: 120),
               const Text(
                 'Tài khoản',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               TextField(
                 controller: _usernameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
+                decoration: const InputDecoration(),
               ),
               const SizedBox(height: 20),
               const Text(
                 'Mật khẩu',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               TextField(
                 controller: _passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
                 obscureText: true,
+                decoration: const InputDecoration(),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 200),
               ElevatedButton(
                 onPressed: _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF6783E7),
+                  minimumSize: const Size(double.infinity, 48),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 24.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                 ),
                 child: const Text(
                   'Đăng nhập',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
               const SizedBox(height: 10),
@@ -99,9 +106,16 @@ class _BodyLoginScreenState extends State<BodyLoginScreen> {
                         builder: (context) => const RegisterScreen()),
                   );
                 },
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all<Size>(
+                      const Size(double.infinity, 48)),
+                ),
                 child: const Text(
                   'Đăng ký',
-                  style: TextStyle(color: Color(0xFF047DE7)),
+                  style: TextStyle(
+                    color: Color(0xFF047DE7),
+                    fontSize: 16,
+                  ),
                 ),
               ),
               // Hiển thị thông báo lỗi
@@ -111,7 +125,7 @@ class _BodyLoginScreenState extends State<BodyLoginScreen> {
                   child: Center(
                     child: Text(
                       _errorMessage,
-                      style: const TextStyle(color: Colors.red),
+                      style: const TextStyle(fontSize: 16, color: Colors.red),
                       textAlign: TextAlign.center,
                     ),
                   ),

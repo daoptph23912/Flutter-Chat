@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import '../data/api_service.dart';
+import 'package:chat_app_bkav_/api/api_server.dart';
 import 'home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -13,6 +13,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _fullnameController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   bool _showErrorMessage = false;
@@ -38,61 +39,62 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: const Text(
                 'Tạo tài khoản',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 50),
+            const Text(
+              'Tên hiển thị',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            TextField(
+              controller: _fullnameController,
+              decoration: const InputDecoration(),
+            ),
+            const SizedBox(height: 10),
             const Text(
               'Tài khoản',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             const Text(
               'Mật khẩu',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             TextField(
               controller: _passwordController,
               obscureText: true,
               decoration: const InputDecoration(),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             const Text(
               'Nhập lại mật khẩu',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             TextField(
               controller: _confirmPasswordController,
               obscureText: true,
               decoration: const InputDecoration(),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 110),
             ElevatedButton(
               onPressed: () {
                 _registerUser();
               },
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 40),
+                minimumSize: const Size(double.infinity, 48),
                 backgroundColor: const Color(0xFF6783E7),
               ),
               child: const Text(
                 'Tạo tài khoản',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
             if (_showErrorMessage) ...[
@@ -101,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Center(
                   child: Text(
                     _errorMessage,
-                    style: const TextStyle(color: Colors.red),
+                    style: const TextStyle(fontSize: 16, color: Colors.red),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -116,9 +118,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _registerUser() async {
     String username = _usernameController.text.trim();
     String password = _passwordController.text.trim();
+    String fullName = _fullnameController.text.trim();
     String confirmPassword = _confirmPasswordController.text.trim();
 
-    if (username.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+    if (username.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty ||
+        fullName.isEmpty) {
       _showErrorMessageDialog('Vui lòng điền đầy đủ thông tin!');
       return;
     }
@@ -138,15 +144,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       // Gửi yêu cầu đăng ký tài khoản
       Map<String, dynamic> registerResponse =
-          await ApiService().register("", username, password);
+          await ApiService().register(fullName, username, password);
 
       if (registerResponse['status'] == 1) {
-
         String token = registerResponse['data']['token'];
         if (!mounted) return;
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => HomeScreen(token : token)),
+          MaterialPageRoute(builder: (_) => HomeScreen(token: token)),
         );
       } else {
         String errorMessage = registerResponse['message'];
