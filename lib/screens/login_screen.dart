@@ -1,9 +1,11 @@
 import 'package:chat_app_bkav_/api/api_server.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app_bkav_/constants/constants.dart';
 import 'package:chat_app_bkav_/screens/home_screen.dart';
 import 'package:chat_app_bkav_/screens/register_screen.dart';
+// import 'package:flutter/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -27,8 +29,8 @@ class BodyLoginScreen extends StatefulWidget {
 }
 
 class _BodyLoginScreenState extends State<BodyLoginScreen> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController(text:"daoptc");
+  final TextEditingController _passwordController = TextEditingController(text: "123"); 
   bool _showErrorMessage = false;
   String _errorMessage = '';
 

@@ -8,6 +8,7 @@ import '../models/friend.dart';
 
 class ApiService {
   final String baseUrl = 'http://localhost:8888/api';
+  // final String baseUrl = 'http://10.2.44.52:8888/api';
   // đăng kí tài khoản
   Future<Map<String, dynamic>> register(
       String fullName, String username, String password) async {

@@ -18,8 +18,9 @@ class MyApp extends StatelessWidget {
       title: 'welcome',
       theme: lightMode,
       home: const LoginScreen(
-          // token: 'asasasa',
-          ),
+        // token:
+        //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiNjYxNjUwMDYxMjQzYmNkZjE1MDQzNGUxIiwiRnVsbE5hbWUiOiJIaeG6v3UgUEMiLCJpYXQiOjE3MTI3MzgzMTAsImV4cCI6MzMyNDg3MzgzMTB9.qZOaD4MDvaFRoKybdrhQJTXx-L0hVGRw2PrfTqR0by4',
+      ),
     );
   }
 }

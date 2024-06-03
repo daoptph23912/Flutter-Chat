@@ -12,10 +12,10 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController(text: "123");
   final TextEditingController _fullnameController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-      TextEditingController();
+      TextEditingController(text: "123");
   bool _showErrorMessage = false;
   String _errorMessage = '';
 

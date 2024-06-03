@@ -130,7 +130,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
               Text(
-                selectedFriend.isOnline ? 'Trực tuyến' : 'Không hoạt động',
+                selectedFriend.isOnline ? 'Đang hoạt động' : 'Không hoạt động',
                 style: const TextStyle(
                   fontStyle: FontStyle.italic,
                 ),
@@ -166,13 +166,15 @@ class _ChatScreenState extends State<ChatScreen> {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const CircleAvatar(
                           radius: 15,
-                          backgroundColor: Colors.grey,
+                          // backgroundColor: Color.fromARGB(255, 255, 255, 255),
                         );
                       } else if (snapshot.hasError) {
                         return const CircleAvatar(
                           radius: 15,
                           backgroundImage:
                               AssetImage('lib/images/icon-user.png'),
+                               backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                               
                         );
                       } else {
                         return CircleAvatar(
@@ -189,8 +191,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: isMe
-                          ? const Color(0xFF20A090)
-                          : const Color(0xFFF2F7FB),
+                          ? const Color.fromARGB(255, 129, 184, 239)
+                          : const Color.fromARGB(255, 195, 213, 227),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ConstrainedBox(
@@ -419,7 +421,6 @@ class _ChatScreenState extends State<ChatScreen> {
               }
               return GestureDetector(
                 onTap: () {
-                  // Handle image selection
                   _selectImage(image);
                 },
                 child: Image.file(file, fit: BoxFit.cover),
@@ -470,8 +471,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
       // Gửi tin nhắn lên server
       await ApiService().sendMessage(widget.token, widget.friendID, newMessage);
-
-      // Cập nhật UI
       setState(() {
         messageList.add(newMessage);
       });
