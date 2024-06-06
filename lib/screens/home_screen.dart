@@ -32,8 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding:
-            const EdgeInsets.only(bottom: 10, right: 10, top: 0, left: 15),
+        padding: const EdgeInsets.only(bottom: 10, right: 10, top: 0, left: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
